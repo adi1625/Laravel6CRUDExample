@@ -4,17 +4,22 @@ Laravel 6 CRUD Example | Laravel 6 Tutorial For Beginners
 1. 下载git、virtualbox、vagrant插件，并安装，顺便配置vagrant代理（不然下虚机超慢）。
 1. 按照laravel官网教程，用vagrant下载 laravel 环境：homestead这个虚机，及其配置文件
 （都是通过git bash输入命令完成，期间有说需要生成ssh密钥的，用来登入到虚机中）。
+1. 修改虚机配置文件，设置共享目录，站点域名（每个域名都需要添加到hosts里，ip一样的）。
 1. 启动虚机（vagrant up），在配置好的路径（此处为宿主机laravel6这个文件夹）下检出项目代码。
 1. 通过ssh连到虚机中，在项目路径下执行 composer install、npm install。
 1. 项目环境：复制项目内 .env.example 为 .env 文件，然后把里面的数据库用户名密码改了。
 1. 在mysql数据库中创建库（空的），此处为laravel6。
 1. 初始化数据库表，虚机内项目路径下：`php artisan migrate` 。
+1. 初始化应用密钥，虚机内项目路径下：`php artisan key:generate` 。
+1. 浏览器访问项目地址：`http://laravel6.test/shows/create` 。
+1. 就能看见页面了，也可以操作，点击添加后，可以看到数据库里出现了一条记录。
 
 注：
 
 - vagrant 虚机用户和密码都是 vagrant。
 - 虚机开启root用户: 先使用vagrant ssh 进入虚拟机（默认的是用户名密码是vagrant）然后执行以下代码就可以提取root权限，sudo passwd root 根据提示输入两次新密码，su root 切换到 root 用户，然后whoami  查看当前登录用户；
 - 数据库用户名：homestead，密码：secret；# mysql -uhomestead -p"secret"；开启权限：mysql>GRANT ALL PRIVILEGES ON *.* TO 'homestead'@'%' IDENTIFIED BY 'secret' WITH GRANT OPTION; 重启服务；
+- 遇到浏览器页面报错“No input file specified.”，检查nginx配置文件 `cd /etc/nginx/sites-available`，用vim命令查看当前目录下的网站域名文件中站点指定的路径是否正确；
 
 ## 虚机配置流程
 
